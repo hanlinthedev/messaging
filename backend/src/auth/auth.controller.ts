@@ -8,14 +8,13 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
   @Get('google')
   @UseGuards(GoogleOauthGuard)
-  async googleAuth() {
-    // Initiates the Google OAuth flow
+  googleAuth() {
     return { message: 'Google OAuth flow initiated' };
   }
 
   @Get('google/callback')
   @UseGuards(GoogleOauthGuard)
-  async login(@Req() req, @Res() res) {
+  async login(@Req() req: { user: any }, @Res() res) {
     const data = await this.authService.login(req.user);
     return {
       message: 'Logged in successfully',
@@ -25,7 +24,7 @@ export class AuthController {
 
   @Get('profile')
   @UseGuards(JwtAuthGuard)
-  async getProfile(@Req() req) {
+  getProfile(@Req() req) {
     return {
       message: 'User profile retrieved successfully',
       user: req.user,
