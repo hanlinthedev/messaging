@@ -10,7 +10,7 @@ export class User {
   name: string;
 
   @Prop({ required: true, unique: true })
-  email: number;
+  email: string;
 
   @Prop()
   avatar: string;

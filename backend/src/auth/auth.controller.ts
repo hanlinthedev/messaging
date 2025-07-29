@@ -16,10 +16,10 @@ export class AuthController {
   @UseGuards(GoogleOauthGuard)
   async login(@Req() req: { user: any }, @Res() res) {
     const data = await this.authService.login(req.user);
-    return {
-      message: 'Logged in successfully',
+    return res.json({
+      message: 'Login Success!',
       data,
-    };
+    });
   }
 
   @Get('profile')
