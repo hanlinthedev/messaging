@@ -20,10 +20,6 @@ import { UserModule } from './user/user.module';
           process.env.NODE_ENV !== 'production'
             ? { target: 'pino-pretty' }
             : undefined,
-
-        // and all the other fields of:
-        // - https://github.com/pinojs/pino-http#api
-        // - https://github.com/pinojs/pino/blob/HEAD/docs/api.md#options-object
       },
     }),
     MongooseModule.forRootAsync({
