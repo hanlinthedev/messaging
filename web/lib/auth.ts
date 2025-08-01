@@ -8,7 +8,7 @@ const getCookie = async (name: string) => {
 };
 
 export const getData = async (endpoint: string) => {
-  const res = await fetch(`${process.env.API_URL}/${endpoint}`, {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -22,5 +22,5 @@ export const getData = async (endpoint: string) => {
   }
   const data = await res.json();
 
-  return data?.data;
+  return data;
 };

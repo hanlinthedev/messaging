@@ -1,3 +1,4 @@
+import LoginButton from "@/components/shared/LoginButton";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,9 +7,8 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { GoogleLogin } from "@react-oauth/google";
 import { redirect } from "next/navigation";
-import { getCookie, googleCallback } from "../action";
+import { getCookie } from "../action";
 
 export default async function LoginForm() {
   const isAuth = await getCookie("access_token");
@@ -37,10 +37,7 @@ export default async function LoginForm() {
               className="w-full bg-white hover:bg-gray-50 text-gray-700 border border-gray-200 shadow-sm h-11"
               variant="outline"
             >
-              <GoogleLogin
-                useOneTap
-                onSuccess={(c) => googleCallback(c.credential as string)}
-              />
+              <LoginButton />
             </Button>
 
             <div className="mt-6 text-center">

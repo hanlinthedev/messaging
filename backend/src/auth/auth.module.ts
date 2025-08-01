@@ -6,7 +6,6 @@ import { UserModule } from 'src/user/user.module';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { OAuthStrategy } from './strategies/oauth.strategy';
 
 @Module({
   imports: [
@@ -16,13 +15,15 @@ import { OAuthStrategy } from './strategies/oauth.strategy';
       imports: [ConfigModule],
       useFactory: (configeService: ConfigService) => ({
         secret: configeService.get<string>('JWT_SECRET'),
-        signOptions: { expiresIn: '60s' },
+        signOptions: {
+          expiresIn: configeService.get<string>('JWT_EXPIRATION_TIME'),
+        },
       }),
       inject: [ConfigService],
     }),
     UserModule,
   ],
-  providers: [AuthService, OAuthStrategy, JwtStrategy],
+  providers: [AuthService, JwtStrategy],
   controllers: [AuthController],
 })
 export class AuthModule {}

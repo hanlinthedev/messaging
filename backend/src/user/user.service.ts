@@ -26,12 +26,19 @@ export class UserService {
     );
   }
 
+  findByUserName(username: string) {
+    return this.userModel
+      .findOne({ name: { $regex: new RegExp(username, 'i') } })
+      .select('_id name email avatar')
+      .exec();
+  }
+
   findAll() {
     return `This action returns all user`;
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    return this.userModel.findById(id).select('_id name email avatar').exec();
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

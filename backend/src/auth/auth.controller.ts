@@ -1,22 +1,14 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { GoogleOauthGuard } from './guards/googleOAuth.guard';
 import { JwtAuthGuard } from './guards/jwtAuth.guard';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  @Get('google')
-  @UseGuards(GoogleOauthGuard)
-  googleAuth() {
-    return { message: 'Google OAuth flow initiated' };
-  }
 
-  @Get('google/callback')
-  @UseGuards(GoogleOauthGuard)
-  async login(@Req() req: { user: any }) {
-    // const data = await this.authService.login(req.user);
-    return this.authService.login(req.user);
+  @Post('google/callback')
+  async login(@Req() req: { user: any }, @Body('idToken') idToken: string) {
+    return this.authService.login(req.user, idToken);
   }
 
   @Get('profile')
@@ -24,7 +16,7 @@ export class AuthController {
   getProfile(@Req() req) {
     return {
       message: 'User profile retrieved successfully',
-      user: req.user,
+      data: req.user,
     };
   }
 }

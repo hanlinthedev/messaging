@@ -1,0 +1,7 @@
+POST http://localhost:8080/api/conversation
+Content-Type: application/json
+Authorization: Bearer 
+
+{
+    "participants": "688b11ce3599192ae6f028f7"
+}
